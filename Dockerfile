@@ -1,0 +1,4 @@
+FROM 5.9.0-slim
+
+EXPOSE 8888
+

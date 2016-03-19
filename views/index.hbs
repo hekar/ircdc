@@ -5,4 +5,22 @@
     <p class="lead">{{get_name}} is the best choice for starting a Koa project!  You know, as long as you don't mind me making some awesome choices for you.</p>
   </div>
 
+
 </div><!-- /.container -->
+
+<script src="//cdn.jsdelivr.net/sockjs/1.0.3/sockjs.min.js"></script>
+<script>
+var sock = new SockJS('http://mydomain.com/my_prefix');
+sock.onopen = function() {
+    console.log('open');
+};
+sock.onmessage = function(e) {
+    console.log('message', e.data);
+};
+sock.onclose = function() {
+    console.log('close');
+};
+
+sock.send('test');
+sock.close();
+</script>

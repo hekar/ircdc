@@ -13,11 +13,8 @@ passport.deserializeUser(function(user, done) {
 });
 
 const GithubStrategy = require('passport-github').Strategy
-  // if we have a port other than 80, add it to our callback url
-  let port = '';
-  if (config.site.port !== 80){
-    port = `:${config.site.port}`;
-  }
+  const port = (config.site.oauth.port !== 80) ?
+    port = `:${config.site.oauth.port}` : '';
   passport.use(new GithubStrategy({
     clientID: config.site.oauth.github.clientID,
     clientSecret: config.site.oauth.github.clientSecret,
