@@ -1,7 +1,7 @@
 {
-  "name": "irccdd",
+  "name": "ircdc",
   "version": "1.0.0",
-  "description": "",
+  "description": "Docker based IRC client",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -14,10 +14,7 @@
   },
   "keywords": [
     "koa",
-    "starter",
-    "starter-kit",
-    "handlebars",
-    "passport"
+    "irc"
   ],
   "author": "Hekar Khani",
   "license": "MIT",
