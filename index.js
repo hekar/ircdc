@@ -6,6 +6,9 @@ const koa = require('koa');
 const hbs = require('koa-hbs');
 const serve = require('koa-static-folder')
 
+const http = require('http');
+const sock = require('./lib/sock');
+
 // for passport support
 const session = require('koa-generic-session');
 const bodyParser = require('koa-bodyparser');
@@ -60,7 +63,10 @@ app.use(function *(next) {
 require('./routes');
 
 console.log(`${config.site.name} is now listening on port ${config.site.port}`);
-app.listen(config.site.port);
+
+const callback = sock.register(app);
+http.createServer(callback)
+  .listen(config.site.port);
 
 process.on('SIGINT', function() {
   process.exit();

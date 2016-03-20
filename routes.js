@@ -12,7 +12,6 @@ const main = require('./controllers/main.js');
 
 const api = require('./lib/api');
 const daemon = require('./lib/daemon');
-const sock = require('./lib/sock');
 
 // routes
 let user = null;
@@ -21,7 +20,7 @@ routes.get('/', function* (){
   if (this.isAuthenticated()) {
     user = this.session.passport.user;
   }
-  
+
   yield this.render('index', {
     title: config.site.name,
     user: user
@@ -57,5 +56,5 @@ routes.get('/account', main.account);
 
 app.use(routes.middleware());
 
-[api, daemon, sock].forEach((server) =>
+[api, daemon].forEach((server) =>
   server.bootstrap(app, routes, { passport }));
