@@ -64,9 +64,10 @@ require('./routes');
 
 console.log(`${config.site.name} is now listening on port ${config.site.port}`);
 
-const callback = sock.register(app);
-http.createServer(callback)
-  .listen(config.site.port);
+const server = http.createServer(app.callback());
+sock.register(server);
+
+server.listen(config.site.port, '0.0.0.0');
 
 process.on('SIGINT', function() {
   process.exit();
