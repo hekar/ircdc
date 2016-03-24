@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/snollygolly/koa-starter#readme",
   "dependencies": {
+    "bunyan": "^1.8.0",
     "co": "^4.6.0",
     "irc": "^0.4.1",
     "koa": "^1.1.2",

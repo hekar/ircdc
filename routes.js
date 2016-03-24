@@ -2,8 +2,6 @@
 
 const config = require('./config.json');
 
-const app = require('./index.js').app;
-const passport = require('./index.js').passport;
 const Router = require('koa-router');
 
 const routes = new Router();
@@ -13,48 +11,56 @@ const main = require('./controllers/main.js');
 const api = require('./lib/api');
 const daemon = require('./lib/daemon');
 
-// routes
-let user = null;
+function bootstrap(app, passport, addons) {
 
-routes.get('/', function* (){
-  if (this.isAuthenticated()) {
-    user = this.session.passport.user;
-  }
+  // routes
+  let user = null;
 
-  yield this.render('index', {
-    title: config.site.name,
-    user: user
+  routes.get('/', function* (){
+    if (this.isAuthenticated()) {
+      user = this.session.passport.user;
+    }
+
+    yield this.render('index', {
+      title: config.site.name,
+      user: user
+    });
   });
-});
 
-// for passport
-routes.get('/login', function* (){
-  if (this.isAuthenticated()) {
-    user = this.session.passport.user;
-  }
-  yield this.render('login', {user: user});
-});
+  // for passport
+  routes.get('/login', function* (){
+    if (this.isAuthenticated()) {
+      user = this.session.passport.user;
+    }
+    yield this.render('login', {user: user});
+  });
 
-routes.get('/logout', function* () {
-  this.logout();
-  this.redirect('/');
-});
+  routes.get('/logout', function* () {
+    this.logout();
+    this.redirect('/');
+  });
 
-// you can add as many strategies as you want
-routes.get('/auth/github',
-  passport.authenticate('github')
-);
+  // you can add as many strategies as you want
+  routes.get('/auth/github',
+    passport.authenticate('github')
+  );
 
-routes.get('/auth/github/callback',
-  passport.authenticate('github', {
-    successRedirect: '/account',
-    failureRedirect: '/'
-  })
-);
+  routes.get('/auth/github/callback',
+    passport.authenticate('github', {
+      successRedirect: '/account',
+      failureRedirect: '/'
+    })
+  );
 
-routes.get('/account', main.account);
+  routes.get('/account', main.account);
 
-app.use(routes.middleware());
+  app.use(routes.middleware());
 
-[api, daemon].forEach((server) =>
-  server.bootstrap(app, routes, { passport }));
+  const childAddons = Object.assign({ passport }, addons);
+  [api, daemon].forEach((server) =>
+    server.bootstrap(app, routes, childAddons));
+}
+
+module.exports = {
+  bootstrap
+};
