@@ -1,15 +1,13 @@
 "use strict";
 
-const config = require('./config.json');
-
 const Router = require('koa-router');
-
-const routes = new Router();
-
+const config = require('./config.json');
 const main = require('./controllers/main.js');
-
+const logger = require('./lib/logger');
 const api = require('./lib/api');
 const daemon = require('./lib/daemon');
+
+const routes = new Router();
 
 function bootstrap(app, passport, addons) {
 
@@ -57,8 +55,14 @@ function bootstrap(app, passport, addons) {
   app.use(routes.middleware());
 
   const childAddons = Object.assign({ passport }, addons);
-  [api, daemon].forEach((server) =>
-    server.bootstrap(app, routes, childAddons));
+
+  [api, daemon].forEach((server) => {
+    try {
+      server.bootstrap(app, routes, childAddons)
+    } catch (e) {
+      log.error(e, 'Failure to bootstrap server: ', server)
+    }
+  });
 }
 
 module.exports = {

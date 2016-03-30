@@ -9,6 +9,7 @@ const serve = require('koa-static-folder')
 const http = require('http');
 const sock = require('./lib/sock');
 const routes = require('./routes');
+const logger = require('./lib/logger');
 
 // for passport support
 const session = require('koa-generic-session');
@@ -65,7 +66,7 @@ app.use(function *(next) {
 const sockjsInstance = sock.createSock();
 
 routes.bootstrap(app, passport, {
-  sock
+  sock: sockjsInstance
 });
 
 console.log(`${config.site.name} is now listening on port ${config.site.port}`);
