@@ -1,10 +1,11 @@
 {
-  "name": "irccdd",
-  "version": "1.0.0",
+  "name": "ircdc",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "debug": "node debug index.js",
     "debug:watch": "nodemon --debug -e hbs,js,json index.js",
     "test": "./node_modules/.bin/mocha -d -G test"
   },
@@ -26,8 +27,8 @@
   },
   "homepage": "https://github.com/snollygolly/koa-starter#readme",
   "dependencies": {
-    "bunyan": "^1.8.0",
     "co": "^4.6.0",
+    "irc": "git+ssh://git@github.com:hekar/node-irc.git#master",
     "koa": "^1.1.2",
     "koa-bodyparser": "^2.0.1",
     "koa-generic-session": "^1.10.0",
@@ -39,8 +40,7 @@
     "passport-github": "^1.0.0",
     "pg-promise": "^3.3.1",
     "sockjs": "^0.3.15",
-    "winston": "^2.2.0",
-    "irc": "git+ssh://git@github.com:hekar/node-irc.git#master"
+    "winston": "^2.2.0"
   },
   "devDependencies": {
     "mocha": "^2.4.5",
