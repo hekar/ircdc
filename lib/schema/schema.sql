@@ -17,3 +17,11 @@ create table log (
   owner varchar(128) not null,
   message text not null
 );
+
+create table user (
+  id bigserial primary key,
+  username varchar(196) not null,
+  last timestamp not null,
+  owner varchar(128) not null,
+  message text not null
+);
