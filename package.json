@@ -1,44 +1,40 @@
 {
   "name": "ircdc",
-  "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.2.0",
+  "description": "IRC server/daemon",
+  "main": "./lib/index.js",
   "scripts": {
-    "start": "node index.js",
-    "debug": "node debug index.js",
-    "debug:watch": "nodemon --debug -e hbs,js,json index.js",
+    "start": "node ./lib/index.js",
+    "debug": "node debug ./lib/index.js",
+    "debug:watch": "nodemon --debug -e js ./lib/index.js",
+    "lint": "eslint .",
     "test": "./node_modules/.bin/mocha -d -G test"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:hekar/irccdd.git"
+    "url": "git@github.com:hekar/ircdc.git"
   },
   "keywords": [
-    "koa",
-    "starter",
-    "starter-kit",
-    "handlebars",
-    "passport"
+    "irc",
+    "server"
   ],
   "author": "Hekar Khani",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/snollygolly/koa-starter/issues"
+    "url": "https://github.com/hekar/ircdc/issues"
   },
-  "homepage": "https://github.com/snollygolly/koa-starter#readme",
+  "homepage": "https://github.com/hekar/ircdc/#readme",
   "dependencies": {
     "co": "^4.6.0",
     "irc": "git+ssh://git@github.com:hekar/node-irc.git#master",
     "koa": "^1.1.2",
+    "koa-body": "^1.4.0",
     "koa-bodyparser": "^2.0.1",
-    "koa-generic-session": "^1.10.0",
-    "koa-hbs": "^0.7.0",
-    "koa-passport": "^1.2.0",
     "koa-router": "^5.3.0",
-    "koa-static-folder": "^0.1.6",
     "lodash": "^4.6.1",
     "passport-github": "^1.0.0",
     "pg-promise": "^3.3.1",
+    "rc": "^1.1.6",
     "sockjs": "^0.3.15",
     "winston": "^2.2.0"
   },
