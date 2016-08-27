@@ -35,7 +35,7 @@
     "passport-github": "^1.0.0",
     "pg-promise": "^3.3.1",
     "rc": "^1.1.6",
-    "sockjs": "^0.3.15",
+    "sockjs": "^0.3.17",
     "winston": "^2.2.0"
   },
   "devDependencies": {
